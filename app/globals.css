@@ -1,0 +1,367 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0e1b32;
+  --bg-raised: #0a1120;
+  --bg-card: rgba(255, 255, 255, 0.035);
+  --line: rgba(255, 255, 255, 0.11);
+  --line-soft: rgba(255, 255, 255, 0.06);
+  --cyan: #5bdccf; /* brand teal */
+  --cyan-soft: rgba(91, 220, 207, 0.08);
+  --cyan-dim: #3a9c8f;
+  --text: #f2eee3; /* brand cream */
+  --text-dim: #8ea0bc; /* brand slate */
+  --text-faint: #5f7191; /* brand slate-dim */
+  --danger: #e2795a; /* brand coral */
+  --danger-soft: rgba(226, 121, 90, 0.08);
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-cyan: var(--cyan);
+  --color-text: var(--text);
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif;
+  --font-serif: "Fraunces", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+}
+
+h1,
+h2,
+.serif {
+  font-family: "Fraunces", serif;
+  font-weight: 460;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+em,
+.ital {
+  font-family: "Fraunces", serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--cyan);
+}
+
+/* Faint dot-grid backdrop, matching the marketing site's .dotgrid texture */
+.dot-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 80%);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(91, 220, 207, 0.5), 0 0 48px rgba(91, 220, 207, 0.2);
+}
+
+.glow-border {
+  border: 1px solid var(--line);
+  box-shadow: 0 0 0 1px rgba(91, 220, 207, 0.04) inset, 0 0 20px rgba(91, 220, 207, 0.06);
+}
+
+.glow-ring {
+  box-shadow: 0 0 0 1px var(--cyan), 0 0 18px rgba(91, 220, 207, 0.4);
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(91, 220, 207, 0.5), 0 0 26px rgba(91, 220, 207, 0.3),
+      0 0 60px rgba(91, 220, 207, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(91, 220, 207, 0.8), 0 0 44px rgba(91, 220, 207, 0.5),
+      0 0 96px rgba(91, 220, 207, 0.2);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2.6s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.35s ease both;
+}
+
+@keyframes match-pulse {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.match-pulse {
+  animation: match-pulse 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* ---------- logo ---------- */
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+}
+
+.logo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(91, 220, 207, 0.7);
+  flex-shrink: 0;
+}
+
+/* ---------- primitives ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 26px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: "Inter", sans-serif;
+}
+
+.btn-primary {
+  background: var(--cyan);
+  color: #07211f;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #82e8dd;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text-dim);
+}
+
+.btn-ghost:hover {
+  border-color: var(--cyan-dim);
+  color: var(--text);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.field-input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1.5px solid var(--line);
+  color: var(--text);
+  padding: 16px 18px;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field-input::placeholder {
+  color: var(--text-faint);
+}
+
+.field-input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px var(--cyan-soft);
+}
+
+.select-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.select-card:hover {
+  border-color: var(--cyan-dim);
+}
+
+.select-card.active {
+  border-color: var(--cyan);
+  background: var(--cyan-soft);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.chip:hover {
+  border-color: var(--cyan-dim);
+  color: var(--text);
+}
+
+.chip.active,
+.chip:has(input:checked) {
+  border-color: var(--cyan);
+  background: var(--cyan-soft);
+  color: var(--cyan);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* A slightly more considered surface for the moments that should feel like
+   the centerpiece of a screen (a match, a profile) rather than one card in
+   a list — soft lift + a faint top sheen instead of a flat 1px box, so the
+   dark-navy/cyan system reads as designed rather than templated. */
+.card-lift {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 20px 40px -24px rgba(0, 0, 0, 0.6);
+}
+
+/* A small tracked label used inline, without the pill/border chrome of
+   .badge — for the many secondary labels (section eyebrows, field labels)
+   that don't need to compete visually with real status badges. */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* Soft cyan glow ring, for avatars/marks that should feel like a focal
+   point rather than a plain bordered circle. */
+.ring-glow {
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 0 0 6px var(--cyan-soft),
+    0 8px 24px -8px rgba(91, 220, 207, 0.35);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  background: var(--cyan-soft);
+}
+
+.badge-dim {
+  color: var(--text-dim);
+  background: var(--bg-raised);
+  border-color: var(--line);
+}
+
+/* progress bar */
+.progress-track {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--bg-raised);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan-dim), var(--cyan));
+  transition: width 0.3s ease;
+}
+
+textarea.field-input {
+  resize: none;
+  font-family: inherit;
+}
+
+/* Hides the scrollbar on an overflow-x-auto strip (e.g. the dashboard tab
+   bar) while keeping it scrollable/swipeable — scrollbars on a short
+   horizontal strip like this just add visual noise. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
