@@ -24,6 +24,8 @@ import * as schema from "./schema.js";
 // sandbox), we fall back to a plain local Postgres via DATABASE_URL so the
 // app is fully testable before it's ever deployed.
 async function createDb() {
+  // redeploy marker: 20260918T173850Z — force fresh function instances after DATABASE_URL fix
+
   if (process.env.NETLIFY_DB_URL) {
     const { drizzle } = await import("drizzle-orm/neon-http");
     return drizzle({ connection: process.env.NETLIFY_DB_URL, schema });
