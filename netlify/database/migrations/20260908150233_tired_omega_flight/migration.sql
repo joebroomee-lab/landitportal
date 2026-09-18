@@ -1,0 +1,1 @@
+ALTER TABLE "matches" ADD COLUMN "pipeline_stage" text DEFAULT 'matched' NOT NULL;
